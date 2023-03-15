@@ -19,7 +19,7 @@ serde_json = "1.0"
 window-vibrancy = "*"
 rustfft = "*"
 nt_version = "*"
-fourier = {path="../../fourier"}
+fourier = {path="../fourier"}
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!
