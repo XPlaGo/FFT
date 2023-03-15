@@ -1,0 +1,427 @@
+$accent: #f7c186
+$text-back-color: rgba(200, 200, 255, 0.2)
+$text-border-color: rgba(200, 200, 255, 0.2)
+$text-color: rgba(200, 200, 255, 0.5)
+$section-background-basic: rgba(0, 0, 20, 0.06)
+$section-background-active: rgba(0, 0, 20, 0.1)
+$border-basic: 1px solid rgba(200, 200, 255, 0.1)
+$transition-basic: 0.1s ease-in-out
+$accent-shadow-color: rgba(247, 236, 205, 0.2)
+
+html, body
+  padding: 0
+  margin: 0
+  width: 100vw
+  overflow-x: hidden
+  font-family: "JetBrains Mono Medium", Consolas, monospace !important
+  color: rgba(200, 200, 255, 0.5) !important
+  font-size: 16px
+  line-height: 24px
+  font-weight: 400
+  color: #0f0f0f
+  background: transparent
+  font-synthesis: none
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  -webkit-text-size-adjust: 100%
+
+html
+  //background: rgba(20, 20, 25, 0.9)
+
+.container
+  margin: 10px
+  border-radius: 10px
+  width: 100vw
+  display: grid
+  grid-template-areas: "inputbox bfx" "inputbox nx"
+  grid-template-columns: 420px auto
+  padding: 10px 20px
+  box-sizing: border-box
+  align-items: center
+
+h1, h2
+  color: $accent
+
+input, textarea
+  outline: none
+  border-radius: 8px
+  padding: 0.6em 1.2em
+  font-size: 1em
+  font-weight: 500
+  font-family: inherit
+  background-color: transparent
+  color: $text-color
+  border: $border-basic
+
+  &::placeholder
+    color: $text-back-color
+
+  &:focus
+    border: 1px solid $accent
+
+button
+  cursor: pointer
+  outline: none
+  background: transparent
+  border: 2px solid $accent
+  box-shadow: 0 0 0 $accent-shadow-color
+  color: #f7c186
+  font-weight: 600
+  height: 50px
+  border-radius: 5px
+  transition: 0.1s ease-in-out
+
+  &:hover
+    background: $section-background-active
+    box-shadow: 0 0 20px $accent-shadow-color
+    transform: skewX(-10deg)
+
+  &:active
+    background: transparent
+    scale: 0.95
+
+//@media (prefers-color-scheme: dark)
+
+//@media (prefers-color-scheme: light)
+
+.styledSection
+  padding: 20px
+  background: $section-background-basic
+  gap: 20px
+  box-sizing: border-box
+  border: $border-basic
+  border-radius: 10px
+  transition: $transition-basic
+
+  &:hover
+    border-color: $accent
+    background: $section-background-active
+
+  &::before
+    content: ""
+    position: absolute
+    pointer-events: none
+    width: 150px
+    height: 250px
+    top: -7px
+    left: -7px
+    border: $border-basic
+    border-radius: 17px 0 0 0
+    border-width: 1px 0 0 1px
+    transition: $transition-basic
+
+  &:hover::before
+    top: -10px
+    left: -10px
+    width: 200px
+    height: 200px
+    border-color: $accent
+
+  &::after
+    content: ""
+    position: absolute
+    pointer-events: none
+    width: 150px
+    height: 250px
+    bottom: -7px
+    right: -7px
+    border: $border-basic
+    border-radius: 0 0 17px 0
+    border-width: 0 1px 1px 0
+    transition: $transition-basic
+
+  &:hover::after
+    bottom: -10px
+    right: -10px
+    width: 200px
+    height: 200px
+    border-color: $accent
+
+.functionInputSection
+  display: grid
+  position: fixed
+  align-content: start
+  margin: auto 0
+  top: 20px
+  left: 20px
+  width: 400px
+  height: calc(100vh - 40px)
+  grid-area: inputbox
+  grid-template-areas: "input" "range" "step" "add" "button"
+  grid-template-columns: 100%
+  grid-template-rows: auto auto auto 1fr auto
+  gap: 20px
+  box-sizing: border-box
+
+  .additiveInfo
+    box-sizing: border-box
+    height: 100%
+    grid-area: add
+    display: flex
+    flex-direction: column
+    overflow-y: overlay
+    overflow-x: hidden
+    padding: 20px 1px
+    border-top: $border-basic
+
+    &::-webkit-scrollbar
+      position: absolute
+      right: -2
+      width: 1px
+
+    &::-webkit-scrollbar-thumb
+      background: rgba(200, 200, 255, 0.1)
+
+    .tokensContainer
+      display: grid
+      grid-template-areas: "add add_title" "list list"
+      grid-template-columns: auto 1fr
+      gap: 20px
+      align-items: center
+
+      .addTitle
+        width: 100%
+        text-align: start
+
+      .addButton
+        width: 40px
+        height: 40px
+        border: 1px solid $text-color
+        box-shadow: none
+        padding: 0
+        display: flex
+        justify-content: center
+        align-items: center
+        transform: none !important
+
+        &:hover
+          border-color: $accent
+
+          svg
+            stroke: $accent !important
+            opacity: 1
+
+        svg
+          opacity: 0.5
+          transition: red
+
+      > ul
+        grid-area: list
+        padding: 0
+
+        .functionTokenBox
+          padding: 20px 10px
+          display: grid
+          grid-template-areas: "nameTitle nameInput" "drop drop" "value value" "buttons buttons"
+          grid-template-columns: auto 1fr
+          grid-template-rows: auto auto auto auto auto
+          align-items: center
+          gap: 20px
+          border-bottom: $border-basic
+
+          .tokenFunctionInput
+            width: 100%
+            grid-area: value
+            display: flex
+            flex-direction: column
+
+            input, textarea
+              color: $accent
+
+          .tokenVarInput
+            width: 100%
+            grid-area: value
+            display: flex
+            flex-direction: row
+            align-items: center
+            justify-content: start
+            gap: 20px
+
+            input, textarea
+              box-sizing: border-box
+              width: 100%
+              color: $accent
+
+          .nameTitle
+            grid-area: nameTitle
+
+          .nameInput
+            grid-area: nameInput
+            color: $accent
+            border-color: $accent
+
+          .dropBox
+            grid-area: drop
+
+          .buttonBox
+            grid-area: buttons
+            display: flex
+            justify-content: center
+            gap: 20px
+
+            button
+              width: 42%
+
+  span
+    color: $text-color
+
+  .rangeBox
+    grid-area: range
+    flex-direction: column
+    gap: 10px
+    display: grid
+    grid-template-areas: "name input" "from finput" "to tinput" "step sinput"
+    grid-template-columns: auto 1fr
+    justify-content: space-between
+    align-items: center
+
+  input.input
+    color: $accent
+    border-color: $accent
+
+  .js-plotly-plot
+    grid-area: plot
+    margin: 0 auto
+
+  .acceptButton
+    grid-area: button
+    color: #000000
+    background: $accent
+
+.plotBox
+  display: flex
+  position: relative
+  box-sizing: border-box
+  margin: 10px auto
+
+.loading
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 700px !important
+  width: 100%
+
+  & div
+    width: 50px
+    height: 50px
+    border: $border-basic
+    border-radius: 50%
+    display: flex
+    justify-content: center
+    align-items: center
+    position: relative
+    box-sizing: border-box
+
+    &::after
+      content: ''
+      box-sizing: border-box
+      position: absolute
+      transform: translate(-50%, -50%)
+      width: 70px
+      height: 70px
+      border-radius: 50%
+      border: 1px solid transparent
+      border-bottom-color: $accent
+      animation: rotation 1s linear infinite
+
+    &::before
+      content: ''
+      box-sizing: border-box
+      position: absolute
+      transform: translate(-50%, -50%)
+      width: 30px
+      height: 30px
+      border-radius: 50%
+      border: 1px solid transparent
+      border-bottom-color: $accent
+      animation: irotation 1s linear infinite
+
+@keyframes rotation
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
+@keyframes irotation
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(-360deg)
+
+@keyframes popup
+  0%
+    transform: translateY(-3px) scaleX(100%)
+
+  50%
+    transform: translateY(3px) scaleX(110%)
+
+  100%
+    transform: translateY(-3px) scaleX(100%)
+
+@keyframes popdown
+  0%
+    transform: translateY(3px) scaleX(100%)
+
+  50%
+    transform: translateY(-3px) scaleX(110%)
+
+  100%
+    transform: translateY(3px) scaleX(100%)
+
+.error
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 700px !important
+  width: 100%
+
+  & div
+    display: flex
+    padding: 10px 20px
+    border: $border-basic
+    border-radius: 10px
+    display: flex
+    justify-content: center
+    align-items: center
+    position: relative
+    box-sizing: border-box
+    color: #ce5434
+
+    &::after
+      content: ''
+      box-sizing: border-box
+      position: absolute
+      width: calc(100% + 20px)
+      height: 70px
+      //top: -10px
+      border-radius: 10px
+      border: 1px solid transparent
+      border-bottom-color: $accent
+      animation: popdown 1s linear infinite
+
+    &::before
+      content: ''
+      box-sizing: border-box
+      position: absolute
+      width: calc(100% + 20px)
+      height: 70px
+      //top: -10px
+      border-radius: 10px
+      border: 1px solid transparent
+      border-top-color: $accent
+      animation: popup 1s linear infinite
+
+.funcPlotBox
+  width: 100%
+  grid-area: fx
+
+.funcFPlotBox
+  width: 100%
+  grid-area: bfx
+
+.funcNPlotBox
+  width: 100%
+  grid-area: nx

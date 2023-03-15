@@ -1,0 +1,486 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: "JetBrains Mono Medium", Consolas, monospace !important;
+  color: rgba(200, 200, 255, 0.5) !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #0f0f0f;
+  background: transparent;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  margin: 10px;
+  border-radius: 10px;
+  width: 100vw;
+  display: grid;
+  grid-template-areas: "inputbox bfx" "inputbox nx";
+  grid-template-columns: 420px auto;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+h1, h2 {
+  color: #f7c186;
+}
+
+input, textarea {
+  outline: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  color: rgba(200, 200, 255, 0.5);
+  border: 1px solid rgba(200, 200, 255, 0.1);
+}
+input::placeholder, textarea::placeholder {
+  color: rgba(200, 200, 255, 0.2);
+}
+input:focus, textarea:focus {
+  border: 1px solid #f7c186;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+  border: 2px solid #f7c186;
+  box-shadow: 0 0 0 rgba(247, 236, 205, 0.2);
+  color: #f7c186;
+  font-weight: 600;
+  height: 50px;
+  border-radius: 5px;
+  transition: 0.1s ease-in-out;
+}
+button:hover {
+  background: rgba(0, 0, 20, 0.1);
+  box-shadow: 0 0 20px rgba(247, 236, 205, 0.2);
+  transform: skewX(-10deg);
+}
+button:active {
+  background: transparent;
+  scale: 0.95;
+}
+
+.styledSection {
+  padding: 20px;
+  background: rgba(0, 0, 20, 0.06);
+  gap: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  border-radius: 10px;
+  transition: 0.1s ease-in-out;
+}
+.styledSection:hover {
+  border-color: #f7c186;
+  background: rgba(0, 0, 20, 0.1);
+}
+.styledSection::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  width: 150px;
+  height: 250px;
+  top: -7px;
+  left: -7px;
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  border-radius: 17px 0 0 0;
+  border-width: 1px 0 0 1px;
+  transition: 0.1s ease-in-out;
+}
+.styledSection:hover::before {
+  top: -10px;
+  left: -10px;
+  width: 200px;
+  height: 200px;
+  border-color: #f7c186;
+}
+.styledSection::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  width: 150px;
+  height: 250px;
+  bottom: -7px;
+  right: -7px;
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  border-radius: 0 0 17px 0;
+  border-width: 0 1px 1px 0;
+  transition: 0.1s ease-in-out;
+}
+.styledSection:hover::after {
+  bottom: -10px;
+  right: -10px;
+  width: 200px;
+  height: 200px;
+  border-color: #f7c186;
+}
+
+.functionInputSection {
+  display: grid;
+  position: fixed;
+  align-content: start;
+  margin: auto 0;
+  top: 20px;
+  left: 20px;
+  width: 400px;
+  height: calc(100vh - 40px);
+  grid-area: inputbox;
+  grid-template-areas: "input" "range" "step" "add" "button";
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 20px;
+  box-sizing: border-box;
+}
+.functionInputSection .additiveInfo {
+  box-sizing: border-box;
+  height: 100%;
+  grid-area: add;
+  display: flex;
+  flex-direction: column;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding: 20px 1px;
+  border-top: 1px solid rgba(200, 200, 255, 0.1);
+}
+.functionInputSection .additiveInfo::-webkit-scrollbar {
+  position: absolute;
+  right: -2;
+  width: 1px;
+}
+.functionInputSection .additiveInfo::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 255, 0.1);
+}
+.functionInputSection .additiveInfo .tokensContainer {
+  display: grid;
+  grid-template-areas: "add add_title" "list list";
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.functionInputSection .additiveInfo .tokensContainer .addTitle {
+  width: 100%;
+  text-align: start;
+}
+.functionInputSection .additiveInfo .tokensContainer .addButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(200, 200, 255, 0.5);
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: none !important;
+}
+.functionInputSection .additiveInfo .tokensContainer .addButton:hover {
+  border-color: #f7c186;
+}
+.functionInputSection .additiveInfo .tokensContainer .addButton:hover svg {
+  stroke: #f7c186 !important;
+  opacity: 1;
+}
+.functionInputSection .additiveInfo .tokensContainer .addButton svg {
+  opacity: 0.5;
+  transition: red;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul {
+  grid-area: list;
+  padding: 0;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox {
+  padding: 20px 10px;
+  display: grid;
+  grid-template-areas: "nameTitle nameInput" "drop drop" "value value" "buttons buttons";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid rgba(200, 200, 255, 0.1);
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenFunctionInput {
+  width: 100%;
+  grid-area: value;
+  display: flex;
+  flex-direction: column;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenFunctionInput input, .functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenFunctionInput textarea {
+  color: #f7c186;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenVarInput {
+  width: 100%;
+  grid-area: value;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenVarInput input, .functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .tokenVarInput textarea {
+  box-sizing: border-box;
+  width: 100%;
+  color: #f7c186;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .nameTitle {
+  grid-area: nameTitle;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .nameInput {
+  grid-area: nameInput;
+  color: #f7c186;
+  border-color: #f7c186;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .dropBox {
+  grid-area: drop;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .buttonBox {
+  grid-area: buttons;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.functionInputSection .additiveInfo .tokensContainer > ul .functionTokenBox .buttonBox button {
+  width: 42%;
+}
+.functionInputSection span {
+  color: rgba(200, 200, 255, 0.5);
+}
+.functionInputSection .rangeBox {
+  grid-area: range;
+  flex-direction: column;
+  gap: 10px;
+  display: grid;
+  grid-template-areas: "name input" "from finput" "to tinput" "step sinput";
+  grid-template-columns: auto 1fr;
+  justify-content: space-between;
+  align-items: center;
+}
+.functionInputSection input.input {
+  color: #f7c186;
+  border-color: #f7c186;
+}
+.functionInputSection .js-plotly-plot {
+  grid-area: plot;
+  margin: 0 auto;
+}
+.functionInputSection .acceptButton {
+  grid-area: button;
+  color: #000000;
+  background: #f7c186;
+}
+
+.plotBox {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  margin: 10px auto;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px !important;
+  width: 100%;
+}
+.loading div {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+.loading div::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  border-bottom-color: #f7c186;
+  animation: rotation 1s linear infinite;
+}
+.loading div::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  border-bottom-color: #f7c186;
+  animation: irotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes irotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes popup {
+  0% {
+    transform: translateY(-3px) scaleX(100%);
+  }
+  50% {
+    transform: translateY(3px) scaleX(110%);
+  }
+  100% {
+    transform: translateY(-3px) scaleX(100%);
+  }
+}
+@keyframes popdown {
+  0% {
+    transform: translateY(3px) scaleX(100%);
+  }
+  50% {
+    transform: translateY(-3px) scaleX(110%);
+  }
+  100% {
+    transform: translateY(3px) scaleX(100%);
+  }
+}
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px !important;
+  width: 100%;
+}
+.error div {
+  display: flex;
+  padding: 10px 20px;
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  color: #ce5434;
+}
+.error div::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: calc(100% + 20px);
+  height: 70px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  border-bottom-color: #f7c186;
+  animation: popdown 1s linear infinite;
+}
+.error div::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: calc(100% + 20px);
+  height: 70px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  border-top-color: #f7c186;
+  animation: popup 1s linear infinite;
+}
+
+.funcPlotBox {
+  width: 100%;
+  grid-area: fx;
+}
+
+.funcFPlotBox {
+  width: 100%;
+  grid-area: bfx;
+}
+
+.funcNPlotBox {
+  width: 100%;
+  grid-area: nx;
+}
+
+.dropBox {
+  position: relative;
+  outline: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  color: rgba(200, 200, 255, 0.5);
+  border: 1px solid rgba(200, 200, 255, 0.1);
+  display: grid;
+  grid-template-areas: "value button" "list list";
+  grid-template-columns: 1fr auto;
+  box-sizing: border-box;
+  align-items: center;
+  overflow: hidden;
+}
+.dropBox .dropValue {
+  grid-area: value;
+  margin: 10px;
+}
+.dropBox button {
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: button;
+  padding: 0 !important;
+  border: none !important;
+  height: 30px;
+  width: 30px;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.dropBox button img {
+  transition: 0.1s ease-in-out;
+}
+.dropBox .dropList {
+  z-index: 10;
+  top: 20px;
+  grid-area: list;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(200, 200, 255, 0.1);
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.dropBox .dropList span {
+  padding: 10px;
+}
+.dropBox .dropList span:hover {
+  background: rgba(0, 0, 20, 0.1);
+}
+.dropBox .dropList span.selected {
+  background: rgba(200, 200, 255, 0.06);
+}
+
+/*# sourceMappingURL=drop.css.map */

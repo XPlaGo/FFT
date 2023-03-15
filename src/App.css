@@ -1,0 +1,25 @@
+.logo.vite:hover {
+  filter: drop-shadow(0 0 2em #747bff);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafb);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    padding: 2px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    padding: 2px;
+    position: absolute;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    margin: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}

@@ -1,0 +1,59 @@
+@import "../main"
+
+.dropBox
+  position: relative
+  outline: none
+  border-radius: 8px
+  font-size: 1em
+  font-weight: 500
+  font-family: inherit
+  background-color: transparent
+  color: $text-color
+  border: $border-basic
+  display: grid
+  grid-template-areas: "value button" "list list"
+  grid-template-columns: 1fr auto
+  box-sizing: border-box
+  align-items: center
+  overflow: hidden
+
+  .dropValue
+    grid-area: value
+    margin: 10px
+
+  button
+    margin: 0 10px
+    display: flex
+    justify-content: center
+    align-items: center
+    grid-area: button
+    padding: 0 !important
+    border: none !important
+    height: 30px
+    width: 30px
+    transform: none !important
+    box-shadow: none !important
+
+    img
+      transition: $transition-basic
+
+  .dropList
+    z-index: 10
+    top: 20px
+    grid-area: list
+    display: flex
+    flex-direction: column
+    border-top: $border-basic
+    width: 100%
+    padding: 0
+    box-sizing: border-box
+    overflow: hidden
+
+    span
+      padding: 10px
+
+      &:hover
+        background: $section-background-active
+
+      &.selected
+        background: rgba(200, 200, 255, 0.06)
