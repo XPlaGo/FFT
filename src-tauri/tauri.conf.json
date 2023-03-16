@@ -8,11 +8,20 @@
   },
   "package": {
     "productName": "FFT",
-    "version": "0.0.0"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
+      "window": {
+        "hide": true,
+        "close": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      },
       "shell": {
         "all": false,
         "open": true
@@ -49,7 +58,21 @@
         "title": "FFT",
         "width": 800,
         "height": 600,
-        "transparent": true
+        "transparent": true,
+        "label": "main",
+        "decorations": false
+      },
+      {
+        "label": "win10",
+        "fullscreen": false,
+        "maximized": false,
+        "resizable": true,
+        "title": "FFT 2",
+        "width": 800,
+        "height": 600,
+        "transparent": false,
+        "visible": false,
+        "decorations": false
       }
     ]
   }

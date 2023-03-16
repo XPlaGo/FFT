@@ -13,13 +13,14 @@ edition = "2021"
 tauri-build = { version = "1.2", features = [] }
 
 [dependencies]
-tauri = { version = "1.2", features = ["dialog-all", "shell-open"] }
+tauri = { version = "1.2", features = ["dialog-all", "shell-open", "window-close", "window-hide", "window-maximize", "window-minimize", "window-start-dragging", "window-unmaximize", "window-unminimize"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 window-vibrancy = "*"
 rustfft = "*"
 nt_version = "*"
 fourier = {path="../fourier"}
+window-shadows = "*"
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

@@ -7,9 +7,10 @@
   windows_subsystem = "windows"
 )]
 
-use tauri::Manager;
+use tauri::{ Manager, WindowBuilder };
 use window_vibrancy::{apply_vibrancy, apply_acrylic, apply_blur, apply_mica, NSVisualEffectMaterial};
 use fourier::{fft, ifft, fft_angular_velocity, Complex};
+use window_shadows::set_shadow;
 
 #[derive(serde::Serialize, serde::Deserialize)]
 struct FunctionResponce {
@@ -18,6 +19,7 @@ struct FunctionResponce {
     fourier_transformed_freq: Vec<f64>,
     result_data: Vec<f64>
 }
+
 
 #[tauri::command]
 fn fft_handle(func_data: Vec<f64>, func_base: Vec<f64>) -> FunctionResponce {
@@ -38,41 +40,40 @@ fn fft_handle(func_data: Vec<f64>, func_base: Vec<f64>) -> FunctionResponce {
     }
 }
 
-#[tauri::command]
-async fn close_splashscreen(window: tauri::Window) {
-    // Close splashscreen
-    if let Some(splashscreen) = window.get_window("splashscreen") {
-        splashscreen.close().unwrap();
-    }
-    // Show main window
-    window.get_window("main").unwrap().show().unwrap();
-}
-
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
-            let window = app.get_window("main").unwrap();
-            //window.hide().unwrap();
+            let mut window = app.get_window("main").unwrap();
+            let mut window_t = app.get_window("win10").unwrap();
+
             #[cfg(target_os = "macos")]
             apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
                 .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
 
             #[cfg(target_os = "windows")]
-            apply_mica(&window).map_err(|_| {
-
-            });
-
-            window.minimize().unwrap();
-            window.unminimize().unwrap();
-            window.maximize().unwrap();
-            window.unmaximize().unwrap();
-            window.maximize().unwrap();
-            window.show().unwrap();
-            window.set_focus().unwrap();
-
+            match apply_mica(&window) {
+                Ok(t) => {
+                    window_t.close().unwrap();
+                    set_shadow(&window, true).unwrap();
+                    window.minimize().unwrap();
+                    window.unminimize().unwrap();
+                    window.maximize().unwrap();
+                    window.unmaximize().unwrap();
+                    window.maximize().unwrap();
+                    window.show().unwrap();
+                    window.set_focus().unwrap();
+                },
+                Err(e) => {
+                    window.close().unwrap();
+                    set_shadow(&window_t, true).unwrap();
+                    window_t.maximize().unwrap();
+                    window_t.show().unwrap();
+                    window_t.set_focus().unwrap();
+                }
+            }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![fft_handle, close_splashscreen])
+        .invoke_handler(tauri::generate_handler![fft_handle])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

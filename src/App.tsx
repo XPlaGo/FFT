@@ -1,17 +1,16 @@
 import {useEffect, useState} from "react";
 import { invoke } from "@tauri-apps/api/tauri";
+import { appWindow} from "@tauri-apps/api/window";
+import { getName } from "@tauri-apps/api/app";
 import Plot from 'react-plotly.js';
 import "./App.css";
 import "./main.css";
 import Mexp from "math-expression-evaluator";
 import FunctionInputSection, {Token} from "./function-input/FunctionInputSection";
+import Titlebar from "./titlebar/Titlebar";
 type fft_data = {function_data: Array<number>, fourier_transformed_data: Array<number>, result_data: Array<number>, fourier_transformed_freq: Array<number>}
 
 function App() {
-
-    useEffect(() => {
-        invoke("close_splashscreen");
-    }, []);
 
     const [expression, setExpression] = useState<string>("");
     const [funcData, setFuncData] = useState<Array<number>>([]);
@@ -148,7 +147,11 @@ function App() {
         setStep((toBound - fromBound) / mexp.eval(step, [],  {}));
     }
 
+    document.body.style.background = appWindow.label == "win10" ? "rgba(32, 32, 32, 1)" : "transparent";
+
     return (
+        <>
+            <Titlebar/>
             <div className="container">
                 <FunctionInputSection
                     mexp={mexp}
@@ -329,7 +332,8 @@ function App() {
                     /></>}
                 </div>
             </div>
-            );
+        </>
+    );
 }
 
 export default App;

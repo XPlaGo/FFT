@@ -8,6 +8,46 @@ $border-basic: 1px solid rgba(200, 200, 255, 0.1)
 $transition-basic: 0.1s ease-in-out
 $accent-shadow-color: rgba(247, 236, 205, 0.2)
 
+.titlebar
+  top: 0
+  position: fixed
+  width: 100vw
+  height: 40px
+  display: flex
+  justify-content: space-between
+  flex-direction: row
+  align-items: center
+  padding: 0 10px
+  box-sizing: border-box
+  z-index: 100
+
+  ul
+    margin: 0
+    gap: 10px
+    display: flex
+    flex-direction: row
+    padding: 5px 0
+
+    button
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 30px
+      width: 30px
+      border-radius: 5px
+      border: $border-basic
+      background: rgba(32, 32, 32, 1)
+      z-index: 100
+      box-shadow: none !important
+
+      &:hover
+        transform: scale(1.1)
+
+      svg
+        width: 20px
+        height: 20px
+
+
 html, body
   padding: 0
   margin: 0
@@ -26,12 +66,15 @@ html, body
   -moz-osx-font-smoothing: grayscale
   -webkit-text-size-adjust: 100%
 
-html
-  //background: rgba(20, 20, 25, 0.9)
+#root
+  display: flex
+  flex-direction: column
+  align-items: stretch
+  padding-top: 40px
+  box-sizing: border-box
 
 .container
-  margin: 10px
-  border-radius: 10px
+  margin: 0
   width: 100vw
   display: grid
   grid-template-areas: "inputbox bfx" "inputbox nx"
@@ -143,10 +186,10 @@ button
   position: fixed
   align-content: start
   margin: auto 0
-  top: 20px
+  top: 60px
   left: 20px
   width: 400px
-  height: calc(100vh - 40px)
+  height: calc(100vh - 80px)
   grid-area: inputbox
   grid-template-areas: "input" "range" "step" "add" "button"
   grid-template-columns: 100%
